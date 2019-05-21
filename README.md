@@ -1,9 +1,9 @@
 # DCIC-2019-HNT-2th-Place
 2019数字中国创新大赛 混凝土泵车砼活塞故障预警 亚军
 
-* hnt_concat_data.py： 把所有文件连接成一个文件
+#### hnt_concat_data.py： 把所有文件连接成一个文件
 
-* hnt_features.py： 提取特征
+#### hnt_features.py： 提取特征
 ```python
 for col in ['发动机转速', '油泵转速', '泵送压力', 
             '液压油温', '流量档位', '分配压力', '排量电流']:
@@ -22,8 +22,8 @@ for col in ['发动机转速', '油泵转速', '泵送压力',
                 ]).reset_index()
     feat_df = feat_df.merge(fea, on=['sample_file_name'])
 ```
-* lgb.ipynb：5折lgihtgbm
-* lgb_fakeid.ipynb：5折lightgbm, 多了个fake_id特征
+#### lgb.ipynb：5折lgihtgbm
+#### lgb_fakeid.ipynb：5折lightgbm, 多了个fake_id特征
 ```python
 tmp = feat_df['活塞工作时长'].astype(str)+'#'\
     +feat_df['设备类型'].astype(str)+'#'\
@@ -32,8 +32,8 @@ tmp = feat_df['活塞工作时长'].astype(str)+'#'\
 lbl = LabelEncoder()
 feat_df['fake_id'] = lbl.fit_transform(tmp)
 ```
-* rf.ipynb：5折random forest
-* ensemble.ipynb：对不同模型输出的预测概率做加权融合
+#### rf.ipynb：5折random forest
+#### ensemble.ipynb：对不同模型输出的预测概率做加权融合
 ```python
 prob = 0.45*lgb_prob1+0.15*lgb_prob2 + 0.4*rf_prob
 sub = test_feat_df[['sample_file_name']].copy()
